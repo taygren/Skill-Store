@@ -46,7 +46,7 @@ Skills are not plugins or code. They are structured instructions that make Claud
 
 | Skill | What It Does | Key Trigger |
 |---|---|---|
-| [humanizer](optimization/humanizer/) | Removes AI writing tells and restores human voice | "This sounds like AI, fix it" |
+| [humanizer](optimization/humanizer/) | Removes AI writing tells and restores human voice | "This sounds like AI, fix it" || [ux-law-reviewer](optimization/ux-law-reviewer/) | Evaluates UI designs against all 30 Laws of UX across six domains; runs as review or proactive checklist | "Review this design" or "UX audit this" |
 
 ### Operations
 
