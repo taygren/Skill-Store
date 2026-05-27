@@ -1,0 +1,122 @@
+# Platform Profile: Windsurf (Codeium)
+
+**Provider:** Codeium  
+**Interface:** AI-native IDE (VS Code fork), JetBrains plugin  
+**Core identity:** Cursor alternative with Cascade — a distinct agentic editing flow
+
+---
+
+## Strengths
+- Cascade: Codeium's multi-file agentic editing system — maintains a "flow state" across changes
+- More affordable than Cursor ($15/month vs Cursor's higher credit-based pricing)
+- Codebase-aware like Cursor: indexes repo for context without manual file inclusion
+- Strong multi-file editing with coherent change propagation
+- JetBrains plugin: reaches IntelliJ, PyCharm, WebStorm, Rider users Cursor doesn't
+- Lower barrier to entry for teams evaluating AI-native IDE capabilities
+- Clean, VS Code-familiar interface
+
+## Weaknesses
+- Smaller feature set than Cursor: fewer parallel agents, less mature Background Agent equivalent
+- Smaller ecosystem than Cursor in 2026
+- Less model choice than Cursor (Cursor supports more model providers)
+- Community and documentation less developed than Cursor
+- Less proven at enterprise scale than Cursor (NVIDIA-scale deployments)
+
+## Context Window
+- Depends on underlying model: standard frontier model context windows
+- Codebase indexing supplements context — similar to Cursor's approach
+
+## Memory & Persistence
+- Similar to Cursor: project-level configuration files
+- No cross-session memory outside configuration files
+- **Handoff note:** Use project-level configuration or a README-style context file to persist session state
+
+## System Prompt Support
+- ✅ Project-level configuration
+- ✅ Inline instructions in Cascade flow
+- Similar to Cursor: configuration files are the persistence surface
+
+## Tool Availability
+- Filesystem read/write (project-scoped)
+- Shell command execution
+- Git operations
+- Terminal access
+- Web search (in some configurations)
+
+## Prompt Format Conventions
+- Similar to Cursor: task prompts should be specific and file-referenced
+- Cascade flow: describe the outcome and let Cascade plan the multi-file changes
+- Project config: concise, declarative rules similar to .cursor/rules
+- Benefits from clear acceptance criteria before starting
+
+## Ideal Task Types
+- Multi-file codebase work where Cursor's cost model is a concern
+- JetBrains ecosystem users who can't use VS Code-based tools
+- Teams evaluating Cursor-class capabilities at lower cost
+- Standard refactoring, debugging, and test generation tasks
+- Projects where Cascade's flow-state editing suits the change pattern
+
+---
+
+## Handoff Receiving Template
+
+```
+=== WINDSURF HANDOFF PACKAGE ===
+Project: [repo name]
+Branch: [branch name]
+Handed off from: [platform] ([phase completed])
+Receiving: Windsurf / Cascade ([phase beginning])
+
+--- PROJECT CONTEXT FILE ---
+[Create or update a CONTEXT.md or .windsurf/rules file with:]
+
+## Project
+[2-sentence description]
+
+## Stack
+[Language, framework, key dependencies]
+
+## Current Task
+[What this Windsurf session is for]
+
+## Conventions
+[Naming, file structure, patterns to follow]
+
+## Acceptance Criteria
+[What "done" looks like]
+
+## Do Not Modify
+[Files, directories, patterns that must not change]
+
+--- CASCADE PROMPT ---
+[Paste into Windsurf Cascade:]
+
+You are continuing work on [project]. Current state:
+
+Completed:
+- [What exists and works]
+
+Your task:
+1. [First action — reference file paths]
+2. [Second action]
+3. [Third action]
+
+Constraints:
+- [Hard constraint 1]
+- [Hard constraint 2]
+
+When complete, output:
+- Files changed
+- Decisions made
+- Any blockers
+This will be used for: /handoff return from Windsurf
+
+=== END ===
+```
+
+## Configuration Checklist
+- [ ] Confirm project is open in Windsurf
+- [ ] Create or update project context file before starting
+- [ ] Confirm correct branch is checked out
+- [ ] Use Cascade mode for multi-file tasks (not standard chat)
+- [ ] Define acceptance criteria before starting — Cascade performs better with clear done-states
