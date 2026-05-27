@@ -1,0 +1,112 @@
+# Platform Profile: DeepSeek
+
+**Provider:** DeepSeek AI (China)  
+**Current Models:** DeepSeek V3 (general), DeepSeek R1 (reasoning)  
+**Interface:** chat.deepseek.com, API, open-weight self-hosting
+
+---
+
+## Strengths
+- DeepSeek R1: transparent chain-of-thought reasoning — shows its work step by step
+- Exceptional price-to-performance ratio — near-frontier quality at significantly lower cost
+- Open-weight models available for self-hosting (full control over data and compute)
+- Strong mathematical and scientific reasoning
+- Code generation competitive with GPT and Claude at a fraction of the API cost
+- R1's transparent reasoning is uniquely useful for auditing AI logic
+- Rapid iteration — team ships model updates frequently
+
+## Weaknesses
+- Data residency concerns: cloud API routes through Chinese infrastructure (significant for sensitive/regulated data)
+- Less polished consumer interface than ChatGPT or Claude
+- Smaller ecosystem and fewer integrations than OpenAI or Anthropic
+- R1's extended thinking adds latency — not suited for fast-turnaround tasks
+- English prose quality slightly below Claude for nuanced writing
+
+## Context Window
+- DeepSeek V3: 128K tokens
+- DeepSeek R1: 128K tokens
+- Behavior: Solid at long context; not a 2M-window platform
+
+## Memory & Persistence
+- No cross-session memory in consumer interface
+- Self-hosted deployments: full control over memory and persistence architecture
+- **Handoff note:** Include full context in the prompt; no native Projects equivalent
+
+## System Prompt Support
+- ✅ API: full system prompt support
+- ✅ Self-hosted: full configuration control
+- ⚠️ Consumer chat: limited system prompt access
+
+## Tool Availability
+- Web search (available in consumer interface)
+- Code execution (sandbox)
+- Open-weight models: any tool can be integrated in self-hosted deployments
+- API: function calling and tool use
+
+## Prompt Format Conventions
+- R1 responds best when given a clear problem statement and asked to reason through it
+- For R1: don't over-constrain the reasoning process — let the chain of thought emerge
+- For V3: similar to Claude/ChatGPT prompting conventions
+- Self-hosted: system prompt is your primary configuration surface
+- For cost-sensitive routing: V3 is the general-purpose choice; R1 for reasoning-heavy tasks
+
+## Ideal Task Types
+- Mathematical reasoning and proof-checking
+- Scientific analysis requiring transparent step-by-step logic
+- Cost-sensitive API workloads (bulk processing, high-volume tasks)
+- Self-hosted / on-premise deployments where cloud API is not acceptable
+- Tasks where auditing the AI's reasoning process matters
+- Code generation at scale where per-token cost is a constraint
+- Air-gapped or privacy-sensitive environments (self-hosted only)
+
+---
+
+## Handoff Receiving Template
+
+```
+=== DEEPSEEK HANDOFF PACKAGE ===
+Project: [name]
+Handed off from: [platform] ([phase])
+Receiving: DeepSeek [V3 / R1] ([phase])
+
+[Choose V3 for general tasks, R1 for reasoning-intensive tasks]
+
+Context: [2-sentence project description]
+Your role: [specific role]
+
+Current goal: [one sentence outcome]
+
+What exists:
+- [Artifact 1] — [status]
+- [Artifact 2] — [status]
+
+Decisions already made (do not re-litigate):
+- [Decision]: [choice] — [reasoning]
+
+[If using R1 — reasoning task:]
+Problem to reason through:
+[Describe the problem clearly. R1 will show its chain of thought.]
+Constraints on the solution: [hard constraints]
+What a good answer looks like: [success criteria]
+
+[If using V3 — general task:]
+Your task:
+1. [First action]
+2. [Second action]
+3. [Third action]
+
+Must not change:
+- [Hard constraints]
+
+Re-entry: Provide full output + summary of reasoning/decisions.
+Run: /handoff return from DeepSeek
+
+=== END ===
+```
+
+## Configuration Checklist
+- [ ] Choose V3 for general tasks, R1 for mathematical/reasoning tasks
+- [ ] For sensitive data: use self-hosted deployment, not cloud API
+- [ ] R1: allow extra time — extended thinking adds latency
+- [ ] For self-hosted: confirm model weights are downloaded and API endpoint is running
+- [ ] API users: set system prompt for role framing and output constraints
