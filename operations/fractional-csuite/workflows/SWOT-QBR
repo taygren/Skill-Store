@@ -1,0 +1,245 @@
+# Workflow: Quarterly Business Review (QBR)
+
+**Command:** `/workflow qbr` or `/workflow qbr[persona]`  
+**Type:** Financial · Strategic  
+**Duration:** Full workflow; allow adequate time for all phases  
+**Agents:** All 7 C-Suite + 6 management agents (FP&A, Sales Ops, Demand Gen, CS, Biz Ops, People Ops)
+
+---
+
+## Purpose
+The QBR is the most comprehensive orchestrated workflow in the system. It reviews the prior quarter's performance across every function, identifies what happened and why, assesses the health of the business entering the next quarter, and produces an updated plan. Run quarterly.
+
+---
+
+## Phase 1 — Data Package (Management Tier, Parallel)
+
+Each management agent contributes their functional data package:
+
+**FP&A Lead:**
+- Revenue vs. plan ($ and %)
+- Gross margin vs. plan
+- Burn rate vs. plan
+- Cash and runway
+- Top 3 budget variances with explanations
+
+**Sales Operations Manager:**
+- Pipeline by stage, age, and segment
+- Quota attainment by rep and team
+- Win rate and average deal size vs. prior quarter
+- ARR adds, churn, and expansion (NRR)
+- Forecast vs. actual (accuracy assessment)
+
+**Demand Generation Manager:**
+- MQLs generated vs. target by channel
+- CAC by channel vs. benchmark
+- MQL-to-SQL conversion rate
+- Top performing and underperforming programs
+
+**Customer Success Manager:**
+- NRR (net revenue retention)
+- Churn rate and churned ARR with root cause
+- Expansion ARR
+- NPS / customer health score distribution
+- At-risk account count and ARR at risk
+
+**Biz Ops Manager:**
+- Company scorecard (OKRs: on track / at risk / off track)
+- Cross-functional operational KPIs
+- Key milestones hit and missed
+
+**People Ops:**
+- Headcount: actual vs. plan
+- Attrition rate and regrettable attrition
+- Open roles and time-to-fill
+- Engagement signals (if survey ran this quarter)
+
+---
+
+## Phase 2 — Functional Assessments (C-Suite, Parallel)
+
+Each C-Suite agent produces a functional health assessment using Phase 1 data:
+
+**CFO — Financial Health Assessment:**
+- Are we on track financially? If not, what changed?
+- What is the updated full-year forecast?
+- What financial risks are entering Q+1?
+- Capital allocation recommendation for Q+1
+
+**CRO — Revenue Health Assessment:**
+- Is pipeline sufficient for Q+1 targets (coverage ratio)?
+- What is the forecast confidence level?
+- Where is the GTM motion strong / weak?
+- What GTM adjustments are recommended for Q+1?
+
+**CMO — Demand Health Assessment:**
+- Is demand gen producing sufficient pipeline quality and quantity?
+- What channels are working / not working?
+- Is the market narrative resonating?
+- What marketing adjustments are recommended?
+
+**CTO — Product and Technology Health:**
+- What shipped vs. what was committed?
+- What is the quality signal (incidents, customer-reported bugs)?
+- What technical risks are entering Q+1?
+- Roadmap recommendation for Q+1
+
+**COO — Operational Health:**
+- Is the business executing efficiently?
+- What operational friction is slowing the business?
+- What capacity constraints exist entering Q+1?
+- Operational priorities for Q+1
+
+**CHRO — People Health:**
+- Is the team healthy, engaged, and retaining well?
+- What people risks are entering Q+1?
+- Hiring plan status and Q+1 hiring priorities
+- Culture signals worth naming
+
+---
+
+## Phase 3 — Cross-Functional Integration (CEO)
+
+The CEO synthesizes Phase 2 assessments:
+
+1. **The 3 most important things that happened this quarter** (one sentence each)
+2. **The 3 biggest risks entering Q+1** with owning agent
+3. **Where agents disagreed** — surface the tension, don't resolve it silently
+4. **Proposed adjustments** to plan, priorities, or resource allocation
+
+---
+
+## Phase 4 — Q+1 Plan (C-Suite, Sequential)
+
+Each agent updates their Q+1 plan based on Phase 3:
+
+- **CFO:** Updated financial guidance and budget adjustments
+- **CRO:** Updated revenue targets and GTM motion adjustments
+- **CMO:** Updated demand plan and channel mix
+- **CTO:** Updated roadmap priorities
+- **COO:** Updated operational commitments
+- **CHRO:** Updated hiring plan
+
+---
+
+## Phase 5 — Alignment Check (CFO + COO + CEO)
+
+- **CFO:** Is the Q+1 plan financially executable?
+- **COO:** Is the Q+1 plan operationally executable?
+- **CEO:** Are all functional plans integrated? Are there resource conflicts?
+
+If conflicts exist: surface them explicitly with the specific tradeoff required.
+
+---
+
+## QBR Output Document
+
+```
+QUARTERLY BUSINESS REVIEW — Q[X] [YEAR]
+Company: [Name] | Prepared: [Date]
+
+━━━ EXECUTIVE SUMMARY ━━━
+[3 most important things that happened]
+[3 biggest risks entering Q+1]
+[Key decisions required]
+
+━━━ FINANCIAL RESULTS ━━━
+Revenue: $[X] vs. plan $[X] ([+/-]%)
+ARR: $[X] | NRR: [X]% | Burn: $[X] | Runway: [X] months
+
+━━━ FUNCTIONAL SCORECARDS ━━━
+[CFO / CRO / CMO / CTO / COO / CHRO assessments]
+
+━━━ Q+1 PLAN ━━━
+[Updated targets and commitments per function]
+
+━━━ DECISIONS REQUIRED ━━━
+[Items requiring leadership decision before Q+1 execution begins]
+
+━━━ OPEN TENSIONS ━━━
+[Where agents disagreed — named explicitly with the specific conflict]
+```
+
+---
+
+---
+
+# Workflow: SWOT Analysis
+
+**Command:** `/workflow swot`  
+**Type:** Strategic  
+**Agents:** All 7 C-Suite
+
+---
+
+## Purpose
+A SWOT analysis produced by the full executive committee — each quadrant owned by the agents with the most relevant intelligence rather than a single person's perspective. Produces the most complete, multi-functional SWOT available.
+
+---
+
+## Phase 1 — Intelligence Gathering (C-Suite, Parallel)
+
+Each agent contributes their functional view of Strengths and Weaknesses:
+
+**CFO:** Financial strengths (capital position, unit economics, margin structure) and weaknesses (burn rate, debt, funding risk, cost inefficiencies)
+
+**CRO:** Revenue strengths (pipeline health, NRR, win rates, GTM motion) and weaknesses (pipeline gaps, churn risk, ICP mismatch, sales capacity)
+
+**CTO:** Technology strengths (platform capabilities, speed, scalability) and weaknesses (technical debt, key-person risk, capability gaps)
+
+**CMO:** Market strengths (brand recognition, positioning, content/SEO) and weaknesses (CAC inefficiency, messaging gaps, analyst coverage)
+
+**COO:** Operational strengths (delivery velocity, process efficiency, vendor relationships) and weaknesses (operational debt, bottlenecks, capacity constraints)
+
+**CHRO:** People strengths (talent density, culture, key performers) and weaknesses (attrition risk, hiring gaps, culture misalignment)
+
+---
+
+## Phase 2 — External Scan (C-Suite, Parallel)
+
+Each agent contributes their functional view of Opportunities and Threats:
+
+**CMO:** Market opportunities (category trends, underserved segments, channel openings) and threats (competitive positioning, buyer behavior shifts, market saturation)
+
+**CRO:** Commercial opportunities (whitespace, new segments, partner channels) and threats (competitive displacement, ICP evolution, pricing pressure)
+
+**CFO:** Macro opportunities (funding environment, M&A targets, financial instruments) and threats (economic headwinds, interest rates, capital market conditions)
+
+**CTO:** Technology opportunities (emerging capabilities, platform extensions, AI/automation) and threats (platform risk, new entrant technology, technical commoditization)
+
+---
+
+## Phase 3 — Integration (CEO)
+
+CEO synthesizes the full SWOT matrix and extracts strategic implications:
+
+1. **The 3 most important SO combinations** (Strengths + Opportunities to pursue)
+2. **The 3 most important ST combinations** (Strengths to use against Threats)
+3. **The 3 most important WO combinations** (Opportunities that could fix Weaknesses)
+4. **The 3 most important WT combinations** (Weaknesses + Threats requiring defensive action)
+5. **Agent disagreements** — where agents saw the same factor differently
+
+---
+
+## SWOT Output Format
+
+```
+SWOT ANALYSIS — [Company Name] | [Date]
+
+┌─────────────────────────┬─────────────────────────┐
+│ STRENGTHS               │ WEAKNESSES               │
+│ [Sourced by function]   │ [Sourced by function]    │
+├─────────────────────────┼─────────────────────────┤
+│ OPPORTUNITIES           │ THREATS                  │
+│ [Sourced by function]   │ [Sourced by function]    │
+└─────────────────────────┴─────────────────────────┘
+
+STRATEGIC IMPLICATIONS
+SO: [Top opportunities to pursue leveraging strengths]
+ST: [Strengths to deploy against threats]
+WO: [Opportunities that address weaknesses]
+WT: [Defensive priorities]
+
+AGENT DISAGREEMENTS
+[Where the committee saw things differently — named]
+```
