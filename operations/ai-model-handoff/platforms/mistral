@@ -1,0 +1,115 @@
+# Platform Profile: Mistral
+
+**Provider:** Mistral AI (France)  
+**Current Models:** Mistral Large, Mistral Medium, Mistral 7B, Codestral  
+**Interface:** chat.mistral.ai (Le Chat), API, open-weight self-hosting
+
+---
+
+## Strengths
+- Open-weight models: full control over weights, fine-tuning, and deployment
+- Strong European data sovereignty story — French company, EU data residency available
+- Best-in-class French language support; strong across European languages
+- Codestral: dedicated code model with strong performance
+- Lightweight models (Mistral 7B) run on consumer hardware — no cloud required
+- Competitive cost at API level, especially for European deployments
+- Fine-tuning available on API — customize on proprietary data
+- Closing the gap with proprietary frontier models on general benchmarks
+- Le Chat (consumer interface) is clean and capable for everyday tasks
+
+## Weaknesses
+- Frontier model performance slightly below Claude Opus / GPT-5 on complex reasoning
+- Smaller ecosystem than OpenAI or Anthropic
+- Less tool integration than ChatGPT or Gemini in consumer interface
+- Consumer interface (Le Chat) less feature-rich than Claude.ai or chatgpt.com
+
+## Context Window
+- Mistral Large: 128K tokens
+- Mistral 7B: 32K tokens
+- Behavior: Solid at long context within window limits
+
+## Memory & Persistence
+- No persistent cross-session memory in Le Chat (as of 2026)
+- Self-hosted: full control over memory architecture
+- Fine-tuned models: behavioral preferences baked into weights
+- **Handoff note:** Include full context in prompt; for ongoing work, consider fine-tuning on use-case-specific examples
+
+## System Prompt Support
+- ✅ API: full system prompt support
+- ✅ Self-hosted: full configuration control
+- ✅ Le Chat: system prompt available in some configurations
+- Open-weight: system prompt is your primary behavioral control surface
+
+## Tool Availability
+- Web search (Le Chat — limited)
+- Code execution (Le Chat)
+- API: function calling
+- Self-hosted: any tool integrable via custom implementation
+- Codestral: specialized for code completion in IDEs (via API)
+
+## Prompt Format Conventions
+- Follows standard chat conventions similar to Claude and ChatGPT
+- For API/self-hosted: system prompt is the primary configuration lever
+- For multilingual tasks: specify the target language explicitly
+- For fine-tuned models: prompt conventions will vary based on training data
+- Le Chat: conversational prompts work well; markdown structure is respected
+
+## Ideal Task Types
+- European enterprise deployments with EU data residency requirements
+- Privacy-sensitive work requiring on-premise or sovereign cloud deployment
+- French and European language tasks
+- Fine-tuning on proprietary domain data (legal, medical, financial)
+- Lightweight edge deployments (Mistral 7B on device)
+- Cost-sensitive API workloads at scale
+- Code tasks via Codestral (competitive with larger models for code completion)
+- Any use case where open-weight model access is required for compliance or control
+
+---
+
+## Handoff Receiving Template
+
+```
+=== MISTRAL HANDOFF PACKAGE ===
+Project: [name]
+Handed off from: [platform] ([phase])
+Receiving: Mistral [Large / Medium / 7B / Codestral] ([phase])
+
+[Deployment: Le Chat / API / Self-hosted]
+[Language: [target language if non-English]]
+
+Context: [2-sentence project description]
+Your role: [specific role]
+[If multilingual:] Respond in: [language]
+
+Current goal: [one sentence outcome]
+
+What exists:
+- [Artifact 1] — [status]
+- [Artifact 2] — [status]
+
+Decisions already made:
+- [Decision]: [choice] — [reasoning]
+
+Your task:
+1. [First action]
+2. [Second action]
+3. [Third action]
+
+Constraints:
+- [Hard constraint 1]
+- [Hard constraint 2]
+[Data sensitivity note if applicable: "This work contains sensitive data — ensure output does not include [X]"]
+
+Re-entry: Provide full output + summary of changes/decisions.
+Run: /handoff return from Mistral
+
+=== END ===
+```
+
+## Configuration Checklist
+- [ ] Select correct model tier: Large for complex tasks, 7B for edge/lightweight
+- [ ] For EU data residency: confirm deployment is on EU infrastructure
+- [ ] For self-hosted: confirm model weights are loaded and endpoint is running
+- [ ] For multilingual tasks: specify target language in the prompt
+- [ ] For fine-tuned models: confirm the correct fine-tuned checkpoint is loaded
+- [ ] For code tasks: use Codestral via API rather than general Mistral models
