@@ -1,0 +1,121 @@
+# Platform Profile: Meta AI / Llama
+
+**Provider:** Meta  
+**Current Models:** Llama 4 (Scout, Maverick, Behemoth)  
+**Interface:** meta.ai (consumer), API via Meta or third-party providers, self-hosted open weights
+
+---
+
+## Strengths
+- Fully open-weight: download model weights, run anywhere, no API dependency
+- Complete data sovereignty — nothing leaves your infrastructure
+- Fine-tunable on proprietary data with full control over training
+- Closing the gap with proprietary frontier models on many benchmarks
+- Meta AI (consumer): integrated into WhatsApp, Instagram, Facebook, Messenger
+- Llama 4 Scout: 10M token context window (experimental)
+- Cost elimination at scale: run at marginal compute cost once deployed
+- Strong community ecosystem: thousands of fine-tuned variants available
+- Air-gapped deployment: fully offline, no internet required
+
+## Weaknesses
+- Self-hosted requires significant infrastructure investment and expertise
+- Base models require fine-tuning or careful prompting to match frontier model quality
+- Consumer Meta AI interface is social-context-first — not suited for professional/enterprise tasks
+- No managed enterprise product with the maturity of ChatGPT Enterprise or M365 Copilot
+- Model updates require re-downloading and re-deploying weights
+
+## Context Window
+- Llama 4 Scout: up to 10M tokens (experimental)
+- Llama 4 Maverick: 1M tokens
+- Behavior: context window is large but quality at extreme lengths depends on deployment configuration
+
+## Memory & Persistence
+- **Self-hosted:** Full control — implement any memory architecture (vector DB, RAG, session state)
+- **Fine-tuned models:** Behavioral preferences baked into weights
+- **Consumer Meta AI:** Limited persistence within social app context
+- **Handoff note:** For professional use, always target self-hosted or third-party API deployments, not consumer Meta AI
+
+## System Prompt Support
+- ✅ Self-hosted: full system prompt control
+- ✅ Third-party API providers (Together AI, Groq, Fireworks): full system prompt support
+- ⚠️ Consumer Meta AI: limited system prompt access
+
+## Tool Availability
+- Self-hosted: any tool integrable via custom implementation
+- Third-party APIs: varies by provider (search, code execution available on some)
+- Consumer Meta AI: web search, image generation
+- No native enterprise tool suite
+
+## Prompt Format Conventions
+- Base Llama models: use chat template format specific to the model version
+- Fine-tuned models: follow the instruction format used during fine-tuning
+- Self-hosted: system prompt is your primary control surface
+- For third-party APIs: follows standard OpenAI-compatible API conventions
+- Llama 4 Instruct: direct task instructions work well; structured prompts improve consistency
+
+## Ideal Task Types
+- Air-gapped / offline deployments (defense, healthcare, finance with strict data controls)
+- Fine-tuning on proprietary domain data (legal, medical, financial, internal knowledge bases)
+- High-volume inference where cloud API cost is prohibitive
+- Privacy-sensitive work requiring zero data egress
+- Research and experimentation with model behavior
+- Building custom AI products without model licensing restrictions
+- Multilingual applications (Llama 4 has broad language coverage)
+
+---
+
+## Handoff Receiving Template
+
+```
+=== META LLAMA HANDOFF PACKAGE ===
+Project: [name]
+Handed off from: [platform] ([phase])
+Receiving: Llama [4 Scout / 4 Maverick / fine-tuned variant] ([phase])
+Deployment: [Self-hosted / Together AI / Groq / Fireworks / other]
+
+[System prompt — set before session:]
+You are [role description]. You are working on [project name].
+Context: [2-sentence description].
+Key constraints: [hard constraints].
+Output format: [format specification].
+
+---
+
+[User turn:]
+Continue work on [project]. Current state:
+
+Goal: [one sentence outcome]
+
+What exists:
+- [Artifact 1] — [status]
+- [Artifact 2] — [status]
+
+Decisions already made:
+- [Decision]: [choice] — [reasoning]
+
+Your task:
+1. [First action]
+2. [Second action]
+3. [Third action]
+
+Must not change:
+- [Hard constraint 1]
+- [Hard constraint 2]
+
+[Data sensitivity note:]
+This task involves sensitive data. Do not reference, log, or transmit
+any of the following: [sensitive data types].
+
+Re-entry: When complete, provide full output + summary.
+Run: /handoff return from Llama
+
+=== END ===
+```
+
+## Configuration Checklist
+- [ ] Confirm deployment target: self-hosted, third-party API, or consumer
+- [ ] For self-hosted: confirm model weights are loaded and endpoint is healthy
+- [ ] For sensitive data: confirm no logging or telemetry is enabled
+- [ ] Select correct model variant: Scout for massive context, Maverick for general tasks
+- [ ] For fine-tuned models: confirm the correct checkpoint is loaded
+- [ ] Third-party API: confirm API key and endpoint URL are configured
