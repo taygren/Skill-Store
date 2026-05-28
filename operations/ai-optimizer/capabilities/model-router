@@ -1,0 +1,217 @@
+# Capability: Model Router
+
+**Commands:** `/route [task]` · `/compare [model A] vs [model B] on [task]` · `/estimate [task]`  
+**Purpose:** Recommend the right model for each task based on cost-to-capability ratio. Integrate with ai-model-handoff when platform switching is warranted.
+
+---
+
+## Routing Philosophy
+
+The most expensive model is not always the best model for a given task. Using a frontier model for a simple extraction task is like hiring a senior architect to paint a room — technically capable, unnecessarily costly. The router's job is to match task complexity to model capability with precision.
+
+**Three routing dimensions:**
+1. **Task complexity** — what level of reasoning does this genuinely require?
+2. **Capability requirements** — does this task need specific tools, context length, or platform features?
+3. **Cost tolerance** — is this a one-off task or a high-volume workflow?
+
+---
+
+## Model Tiers
+
+### Tier 1 — Fast / Economical
+Best for: Simple extraction, formatting, classification, summarization of short content, template filling, basic Q&A.
+
+| Model | Input (per 1M) | Output (per 1M) | Context |
+|---|---|---|---|
+| Claude Haiku 3.5 | $0.80 | $4.00 | 200K |
+| GPT-4o mini | $0.15 | $0.60 | 128K |
+| Gemini Flash 2.0 | $0.10 | $0.40 | 1M |
+| Mistral 7B (API) | $0.10 | $0.30 | 32K |
+
+**Route here when:** The task requires reading and reformatting, extracting structured data, simple classification, short-form generation, or high-volume batch processing where cost is the primary constraint.
+
+---
+
+### Tier 2 — Mid-Tier / Balanced
+Best for: Standard writing tasks, code generation, analysis, document summarization, multi-step instructions.
+
+| Model | Input (per 1M) | Output (per 1M) | Context |
+|---|---|---|---|
+| Claude Sonnet 4.6 | $3.00 | $15.00 | 200K |
+| GPT-4o | $2.50 | $10.00 | 128K |
+| Gemini Pro 3.1 | $1.25 | $5.00 | 2M |
+| Mistral Large | $2.00 | $6.00 | 128K |
+
+**Route here when:** The task requires genuine reasoning, quality writing, code that will go to production, multi-document analysis, or structured outputs that need to be accurate and well-formatted.
+
+---
+
+### Tier 3 — Frontier / Premium
+Best for: Complex multi-step reasoning, architecture decisions, long-horizon agent tasks, nuanced analysis, extended thinking.
+
+| Model | Input (per 1M) | Output (per 1M) | Context |
+|---|---|---|---|
+| Claude Opus 4.6 | $15.00 | $75.00 | 200K |
+| GPT-5 | $10.00 | $40.00 | 1M |
+| Gemini Ultra 3.1 | $10.00 | $40.00 | 2M |
+| DeepSeek R1 | $0.55 | $2.19 | 128K |
+
+**Route here when:** The task has 3+ dependent reasoning steps, requires extended thinking, involves high-stakes decisions, or needs the best possible output quality where cost is secondary.
+
+---
+
+### Specialized Platforms
+Tasks that belong on a specific platform regardless of tier.
+
+| Platform | Route Here When | Cost Profile |
+|---|---|---|
+| Perplexity | Real-time web data required, citations needed | ~$5/1K queries (Pro) |
+| Grok | X/social signal analysis, real-time discourse | Similar to Tier 2 |
+| Cursor / Windsurf | Task lives in a codebase, multi-file changes needed | Credit-based |
+| Claude Code | Terminal-native agentic coding, repo-level work | Per-token (Sonnet pricing) |
+| Copilot | Task lives in M365 or GitHub repo | M365 license |
+| Meta Llama (self-hosted) | Privacy-sensitive, air-gapped, high volume | Infrastructure cost only |
+
+---
+
+## Routing Decision Matrix
+
+Match the task description to the appropriate tier and platform:
+
+### Task Type → Tier Mapping
+
+| Task Type | Recommended Tier | Notes |
+|---|---|---|
+| Text extraction / parsing | Tier 1 | No reasoning required |
+| Classification / tagging | Tier 1 | Simple decision tree |
+| Template filling | Tier 1 | Formatting only |
+| Short summarization (<2K input) | Tier 1 | Low complexity |
+| Email drafting (standard) | Tier 1–2 | Depends on stakes |
+| Code completion / snippets | Tier 2 | Quality matters |
+| Long-form writing | Tier 2 | Balance quality/cost |
+| Data analysis + narrative | Tier 2 | Reasoning required |
+| Multi-document synthesis | Tier 2–3 | Depends on depth |
+| Architecture decisions | Tier 3 | High stakes, complex |
+| Multi-step agent tasks | Tier 3 | Dependencies compound |
+| Extended reasoning / math | Tier 3 or DeepSeek R1 | R1 is cost-efficient here |
+| Real-time research | Perplexity / Grok | Don't use frontier models for search |
+| Codebase-wide changes | Cursor / Claude Code | Don't use chat models for IDE work |
+| Large document corpus (>500K tokens) | Gemini (2M context) | Context window is the deciding factor |
+| Privacy-sensitive at scale | Mistral / Llama self-hosted | Data sovereignty required |
+
+---
+
+## Routing Output Format
+
+```
+━━━ MODEL ROUTING ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Task: [description]
+
+RECOMMENDATION
+Primary:  [Model] — [Tier] — $[X] input / $[X] output per 1M tokens
+Fallback: [Model] — [Tier] — $[X] input / $[X] output per 1M tokens
+
+WHY [PRIMARY MODEL]
+[2–3 sentences: task characteristics that match this model's strengths]
+
+WHY NOT [HIGHER TIER]
+[1 sentence: why the more expensive option is unnecessary for this task]
+
+COST ESTIMATE
+Single call:      ~[N] tokens → $[X]
+100 calls/day:    ~$[X]/month
+1,000 calls/day:  ~$[X]/month
+
+PLATFORM NOTE
+[If a specialized platform applies: note and link to ai-model-handoff]
+
+HANDOFF READY: [Yes / No]
+[If yes: run /handoff to [platform] to transfer with full context]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+---
+
+## `/compare` Output Format
+
+```
+━━━ MODEL COMPARISON ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Task: [description]
+
+                    [MODEL A]           [MODEL B]
+────────────────    ─────────────────   ─────────────────
+Tier                [tier]              [tier]
+Input cost/1M       $[X]                $[X]
+Output cost/1M      $[X]                $[X]
+Context window      [N]K tokens         [N]K tokens
+Task fit score      [N]/10              [N]/10
+Est. cost/call      $[X]                $[X]
+Est. monthly (1K/d) $[X]                $[X]
+Cost difference     [MODEL B] is [X]x more expensive
+
+CAPABILITY COMPARISON
+[Dimension 1]:      [A assessment]      [B assessment]
+[Dimension 2]:      [A assessment]      [B assessment]
+[Dimension 3]:      [A assessment]      [B assessment]
+
+RECOMMENDATION
+[Which model wins for this task and why — one clear answer]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+---
+
+## `/estimate` Output Format
+
+```
+━━━ COST ESTIMATE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Task: [description]
+Recommended model: [model]
+
+TOKEN BREAKDOWN
+System prompt:    ~[N] tokens
+Input/context:    ~[N] tokens
+Expected output:  ~[N] tokens
+Total per call:   ~[N] tokens
+
+COST
+Per call:         ~$[X]
+Per 100 calls:    ~$[X]
+Per 1K calls/day: ~$[X]/month
+
+OPTIMIZED ESTIMATE
+With /rewrite[balanced] applied to prompt:
+  Estimated tokens: ~[N] ([X]% reduction)
+  Per call:         ~$[X]
+  Monthly savings:  ~$[X]/month at 1K calls/day
+
+⚠️ Pricing verified against [source] as of [date].
+   Verify current rates at provider pricing pages before budgeting.
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+
+---
+
+## AI Model Handoff Integration
+
+When `/route` determines a specialized platform is the right destination:
+
+1. Flag the recommendation in the routing output
+2. Note that `ai-model-handoff` handles the transfer
+3. The user can immediately run `/handoff to [platform]` to invoke the full handoff skill with token-efficiency context included in the package
+
+The handoff package produced in this context will include:
+- The routing rationale (why this platform was chosen)
+- The optimized prompt (if `/rewrite` was run)
+- The compressed context (if `/compress` was run)
+- Standard ai-model-handoff context block, decisions, and re-entry instructions
+
+---
+
+## Routing Rules
+
+1. **Never recommend a higher tier than the task requires.** Over-provisioning is waste.
+2. **Always provide a fallback.** One tier down from the recommendation as a cost-saving alternative.
+3. **Specialized platforms beat general models for their domains.** Don't use Claude for real-time search when Perplexity exists.
+4. **Volume changes the recommendation.** A task that's fine on Tier 3 for 10 calls/day may need Tier 2 at 1,000 calls/day.
+5. **Pricing disclaimer always.** Model pricing changes; estimates are directional, not contractual.
